@@ -1,2 +1,2 @@
 # horus
-Discord utility bot built using Javacord.
+Discord utility bot built using Discord4j.

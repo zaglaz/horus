@@ -21,8 +21,12 @@ public class Greet extends Command {
         return greetRequest;
     }
 
-    public void registerGreetCommand(long guildID) {
+    public void registerGuildGreetCommand(long guildID) {
         makeGuildCommand(guildID);
+    }
+
+    public void registerGlobalGreetCommand() {
+        makeGlobalCommand();
     }
 
     public void listenForGreet() {

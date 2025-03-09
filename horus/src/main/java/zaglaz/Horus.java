@@ -5,7 +5,9 @@ import discord4j.core.GatewayDiscordClient;
 import zaglaz.command.commands.Greet;
 
 public class Horus {
-  private static final String BOT_TOKEN = "foobar"; //replace value with bot token
+  private static final String BOT_TOKEN = ""; //replace with bot token
+  private static final long GUILD_ID = 1L; //replace with your guildID
+
   public static DiscordClient client = DiscordClient.create(BOT_TOKEN);
 
     public static void main(String[] args) {
@@ -16,7 +18,7 @@ public class Horus {
       // Creates, registers, and listens for greet command
       Greet greetCommand = new Greet(botGateway);
       greetCommand.buildCommand();
-      greetCommand.registerGreetCommand(12345L); //replace argument with your guildID
+      greetCommand.registerGuildGreetCommand(GUILD_ID);
       greetCommand.listenForGreet();
 
       //Ensures bot doesn't disconnect

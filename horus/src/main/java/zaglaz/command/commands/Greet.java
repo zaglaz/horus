@@ -3,6 +3,7 @@ package zaglaz.command.commands;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.discordjson.json.ApplicationCommandRequest;
+import reactor.core.publisher.Mono;
 import zaglaz.command.Command;
 
 public class Greet extends Command {
@@ -21,14 +22,6 @@ public class Greet extends Command {
         return greetRequest;
     }
 
-    public void registerGuildGreetCommand(long guildID) {
-        makeGuildCommand(guildID);
-    }
-
-    public void registerGlobalGreetCommand() {
-        makeGlobalCommand();
-    }
-
     public void listenForGreet() {
         /*
          * Post-registration, we look to see if the user invokes the command, 
@@ -36,6 +29,8 @@ public class Greet extends Command {
          */
         client.on(ChatInputInteractionEvent.class)
             .filter(event -> event.getCommandName().equals("greet"))
-            .flatMap(event -> event.reply("Hi, " + event.getInteraction().getUser().getUsername() + "! 😃")).subscribe();
+            .flatMap(event -> event.reply("Hi, " + event.getInteraction().getUser().getUsername() + "! 😃"))
+            .onErrorResume(e -> Mono.empty()) //returns nothing if things go wrong
+            .subscribe();
     }
 }

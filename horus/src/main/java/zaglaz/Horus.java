@@ -18,9 +18,9 @@ public class Horus {
       // Creates, registers, and listens for greet command
       Greet greetCommand = new Greet(botGateway);
       greetCommand.buildCommand();
-      greetCommand.registerGuildGreetCommand(GUILD_ID);
+      greetCommand.makeGuildCommand(GUILD_ID);
       greetCommand.listenForGreet();
-
+      
       //Ensures bot doesn't disconnect
       botGateway.onDisconnect().block();
   }

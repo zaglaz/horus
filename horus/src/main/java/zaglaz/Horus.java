@@ -3,6 +3,7 @@ package zaglaz;
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import zaglaz.command.commands.Greet;
+import zaglaz.command.commands.RandomNumber;
 
 public class Horus {
   private static final String BOT_TOKEN = ""; //replace with bot token
@@ -21,6 +22,12 @@ public class Horus {
       greetCommand.makeGuildCommand(GUILD_ID);
       greetCommand.listenForGreet();
       
+      //Does the same for randomnum command
+      RandomNumber rand = new RandomNumber(botGateway);
+      rand.buildCommand();
+      rand.makeGuildCommand(GUILD_ID);
+      rand.listenForRandomNumber();
+
       //Ensures bot doesn't disconnect
       botGateway.onDisconnect().block();
   }

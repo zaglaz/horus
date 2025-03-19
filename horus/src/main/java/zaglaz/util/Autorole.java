@@ -43,8 +43,8 @@ public class Autorole {
             .build());
     }
 
-    /* to-do: with .flatMap() and .filter() retrieve guild roles, see if we already have a role of the same name; 
-     * if we don't call makeAutoRole() and add it, then assign it to the newly-joined user regardless/
+    /* TODO - with .flatMap() and .filter() retrieve guild roles, see if we already have a role of the same name; 
+    * if we don't call makeAutoRole() and add it, then assign it to the newly-joined user regardless/
     */
     public void giveAutoRole() {
         client.on(MemberJoinEvent.class)

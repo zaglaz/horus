@@ -47,8 +47,8 @@ public class RandomNumber extends Command {
             .flatMap(event -> {
                 int randomNumber = 0;
                 /*
-                 * Recieving and storing the values of our 
-                 * slash command options, 
+                 * Recieving and storing the values of both 
+                 * our slash command options
                  */
                 Long min = event.getOption("lower_bound")
                     .flatMap(ApplicationCommandInteractionOption::getValue)
@@ -59,14 +59,15 @@ public class RandomNumber extends Command {
                     .flatMap(ApplicationCommandInteractionOption::getValue)
                     .map(ApplicationCommandInteractionOptionValue::asLong)
                     .orElse(null);
-
+                // Checking if min is truly a min and for null values
                 if (max != null && min != null) {
                     if (max > min ) {
-                        randomNumber = (int)(Math.random() * (max - min + 1) + min); //inclusive range
+                        // Inclusive range from lower->upper
+                        randomNumber = (int)(Math.random() * (max - min + 1) + min);
                         return event.reply(String.valueOf(randomNumber));
                     }
                 }
-                return event.reply("Error: invalid input"); //if we have null max/null min or max <= min
+                return event.reply("Error: invalid input");
             })
             .onErrorResume(e -> Mono.empty())
             .subscribe();

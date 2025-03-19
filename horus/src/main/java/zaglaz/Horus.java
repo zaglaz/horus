@@ -2,23 +2,16 @@ package zaglaz;
 
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.rest.util.Permission;
-import discord4j.rest.util.PermissionSet;
 import zaglaz.command.commands.Greet;
 import zaglaz.command.commands.RandomNumber;
-import zaglaz.util.Autorole;
+import zaglaz.command.commands.Pfp;
+
 
 public class Horus {
-  private static final String BOT_TOKEN = ""; //replace with bot token
-  private static final long GUILD_ID = 1L; //replace with your guildID
-  private static final PermissionSet autorolePermissions = PermissionSet.of( //replace with any explicit perms you'd like the autorole to have
-    Permission.SEND_MESSAGES, 
-    Permission.ATTACH_FILES, 
-    Permission.CHANGE_NICKNAME
-  );
+  private static final String BOT_TOKEN = ""; // Replace with bot token
+  private static final long GUILD_ID = 1L; // Replace with your guildID
 
   public static DiscordClient client = DiscordClient.create(BOT_TOKEN);
-
     public static void main(String[] args) {
 
       // Logging in
@@ -30,15 +23,16 @@ public class Horus {
       greetCommand.makeGuildCommand(GUILD_ID);
       greetCommand.listenForGreet();
       
-      //Does the same for randomnum command
+      // Creates, registers, and listens for randomnum
       RandomNumber rand = new RandomNumber(botGateway);
       rand.buildCommand();
       rand.makeGuildCommand(GUILD_ID);
       rand.listenForRandomNumber();
 
-      //Enables Autorole
-      Autorole auto = new Autorole(botGateway, "Newcomer", new int[] {0, 255, 0}, false, true, autorolePermissions);
-      auto.giveAutoRole();
+      // Creates, registers, and listens for pfp
+      Pfp pfp = new Pfp(botGateway);
+      pfp.makeGuildCommand(GUILD_ID);
+      pfp.listenForPfp();
 
       //Ensures bot doesn't disconnect
       botGateway.onDisconnect().block();
